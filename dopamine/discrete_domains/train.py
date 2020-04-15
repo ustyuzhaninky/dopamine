@@ -28,7 +28,9 @@ from absl import flags
 from dopamine.discrete_domains import run_experiment
 
 import tensorflow.compat.v1 as tf
+from tensorflow.python.framework.ops import disable_eager_execution
 
+disable_eager_execution()
 
 flags.DEFINE_string('base_dir', None,
                     'Base directory to host all required sub-directories.')
@@ -50,6 +52,7 @@ def main(unused_argv):
   Args:
     unused_argv: Arguments (unused).
   """
+  print(FLAGS.gin_files)
   tf.logging.set_verbosity(tf.logging.INFO)
   run_experiment.load_gin_configs(FLAGS.gin_files, FLAGS.gin_bindings)
   runner = run_experiment.create_runner(FLAGS.base_dir)
